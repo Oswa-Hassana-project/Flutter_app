@@ -13,6 +13,9 @@ class TextFormWidget extends StatelessWidget {
         this.width_line,
         this.ispassword=false,
         this.validator,
+        this.onChanged,
+        this.onFieldSubmitted,
+        this.suffixPressed,
         this.maxLine,
         this.minLine});
 
@@ -20,6 +23,9 @@ class TextFormWidget extends StatelessWidget {
   final String label;
   final bool ispassword;
   final String? Function(String?)? validator;
+  final String? Function(String?)? onChanged;
+  final String? Function(String?)? onFieldSubmitted;
+  final Function()? suffixPressed;
   final IconData preIcon;
   final IconData? sufIcon;
   final TextInputType? keyboardType;
@@ -29,13 +35,15 @@ class TextFormWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var h = MediaQuery.of(context).size.height;
+    var w = MediaQuery.of(context).size.width;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 18),
+      padding:  EdgeInsets.symmetric(vertical: .015*h),
       child: Column(
         children: [
           Container(
             height: 5,
-            width: width_line ?? 0.5*MediaQuery.of(context).size.width,
+            width: width_line ?? 0.3*w,
               decoration: BoxDecoration(
                 color: Color(0xff004038),
                 borderRadius: BorderRadius.circular(17)
@@ -57,8 +65,11 @@ class TextFormWidget extends StatelessWidget {
               filled: true,
               border:  OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
               prefixIcon:Icon(preIcon,color: Color(0xff80000000),),
-              suffixIcon: sufIcon != null ? Icon(sufIcon):null,
+              suffixIcon: sufIcon != null ? IconButton(
+                  onPressed: suffixPressed,
+                  icon: Icon(sufIcon)):null,
             ),
+            
           ),
         ],
       ),
