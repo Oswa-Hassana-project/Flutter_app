@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 
@@ -36,10 +35,7 @@ class TextFormWidget extends StatelessWidget {
           Container(
             height: 5,
             width: width_line ?? 0.5*MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                color: Color(0xff004038),
-                borderRadius: BorderRadius.circular(17)
-              ),
+
           ),
           TextFormField(
             maxLines:maxLine ?? 1 ,
