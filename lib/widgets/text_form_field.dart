@@ -10,7 +10,6 @@ class TextFormWidget extends StatelessWidget {
         required this.keyboardType,
         required this.preIcon,
         this.sufIcon,
-        this.width_line,
         this.ispassword=false,
         this.validator,
         this.onChanged,
@@ -30,49 +29,32 @@ class TextFormWidget extends StatelessWidget {
   final IconData? sufIcon;
   final TextInputType? keyboardType;
   final int? maxLine;
-  final double? width_line;
   final int? minLine;
 
   @override
   Widget build(BuildContext context) {
-    var h = MediaQuery.of(context).size.height;
-    var w = MediaQuery.of(context).size.width;
-    return Padding(
-      padding:  EdgeInsets.symmetric(vertical: .015*h),
-      child: Column(
-        children: [
-          Container(
-            height: 5,
-            width: width_line ?? 0.3*w,
-              decoration: BoxDecoration(
-                color: Color(0xff004038),
-                borderRadius: BorderRadius.circular(17)
-              ),
-          ),
-          TextFormField(
-            maxLines:maxLine ?? 1 ,
-            minLines: minLine,
-            keyboardType: keyboardType,
-            validator: validator,
-            autovalidateMode:
-            validator != null ? AutovalidateMode.onUserInteraction : null,
-            controller: Controller,
-            obscureText: ispassword,
-            decoration:
-            InputDecoration(label: Text(label,style: TextStyle(fontSize: 16,
-                color: Color(0xff80000000),fontWeight: FontWeight.bold),),
-              fillColor: Colors.white,
-              filled: true,
-              border:  OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
-              prefixIcon:Icon(preIcon,color: Color(0xff80000000),),
-              suffixIcon: sufIcon != null ? IconButton(
-                  onPressed: suffixPressed,
-                  icon: Icon(sufIcon)):null,
-            ),
-            
-          ),
-        ],
+
+    return TextFormField(
+      maxLines:maxLine ?? 1 ,
+      minLines: minLine,
+      keyboardType: keyboardType,
+      validator: validator,
+      autovalidateMode:
+      validator != null ? AutovalidateMode.onUserInteraction : null,
+      controller: Controller,
+      obscureText: ispassword,
+      decoration:
+      InputDecoration(label: Text(label,style: TextStyle(fontSize: 16,
+          color: Color(0xff80000000),fontWeight: FontWeight.bold),),
+        fillColor: Colors.white,
+        filled: true,
+        border:  OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(17))),
+        prefixIcon:Icon(preIcon,color: Color(0xff80000000),),
+        suffixIcon: sufIcon != null ? IconButton(
+            onPressed: suffixPressed,
+            icon: Icon(sufIcon)):null,
       ),
+
     );
   }
 }

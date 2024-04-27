@@ -1,7 +1,11 @@
+import 'package:bloc/bloc.dart';
+import 'package:finalproject/pages/homepage.dart';
 import 'package:finalproject/pages/sign_up.dart';
+import 'package:finalproject/shared/BlocObserver.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
 }
 
