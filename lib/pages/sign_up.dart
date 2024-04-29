@@ -1,3 +1,4 @@
+import 'package:finalproject/model/repositories.dart';
 import 'package:finalproject/shared/cubit/cubit.dart';
 import 'package:finalproject/shared/cubit/states.dart';
 import 'package:finalproject/widgets/text_form_field.dart';
@@ -30,7 +31,7 @@ class _sign_upState extends State<sign_up> {
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
     return BlocProvider(
-      create: (context) => AppCubit(),
+      create: (context) => AppCubit(TimeRepository()),
       child: BlocConsumer<AppCubit,AppStates>(
         listener: (context, state) {},
         builder:(context, state) {
