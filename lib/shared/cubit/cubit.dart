@@ -11,9 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AppCubit extends Cubit<AppStates>{
   final TimeRepository _repository;
   late Timer  _timer;
-  late DateTime  _lastEmittedTime;
   AppCubit(this._repository):super(AppInitalState()){
-    _lastEmittedTime = DateTime.now();
     _timer = Timer.periodic(Duration(seconds: 1), (_) => fetchTime());
   }
 
@@ -30,10 +28,7 @@ class AppCubit extends Cubit<AppStates>{
     try {
       final time = await _repository.getTime();
       final currentTime = DateTime.now();
-      if (_lastEmittedTime.minute != currentTime.minute) {
-        _lastEmittedTime = currentTime;
-        Time = '${currentTime.hour}:${currentTime.minute}';
-      }
+      Time = '${currentTime.hour}:${currentTime.minute}';
       emit(LoadAzanTimeState(time));
 
 
