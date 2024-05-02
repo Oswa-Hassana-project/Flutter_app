@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:finalproject/shared/cubit/profileStates.dart';
+import 'package:finalproject/widgets/constsnts.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileCubit extends Cubit<ProfileStates>{
@@ -28,5 +30,58 @@ class ProfileCubit extends Cubit<ProfileStates>{
     GenderController.text=Gender;
     emit(GetGenderState());
   }
+
+  bool switchValueGeneral=true;
+  bool switchValueSound=true;
+  bool switchValueVibrate=true;
+  bool switchValuePrayer=true;
+  bool switchValueAppUpdate=true;
+  bool switchValuePromotion=true;
+  bool switchValueDiscount=true;
+  bool switchValuePayment=true;
+  bool switchValueService=true;
+  bool switchValueTips=true;
+
+  ToggleSwitch(bool value){
+    switchValueGeneral=value;
+    emit(NotificationsState());
+  }
+  ToggleSwitchSound(bool value){
+    switchValueSound=value;
+    emit(NotificationsState());
+  }
+  ToggleSwitchVibrate(bool value){
+    switchValueVibrate=value;
+    emit(NotificationsState());
+  }
+  ToggleSwitchPrayer(bool value){
+    switchValuePrayer=value;
+    emit(NotificationsState());
+  }
+  ToggleSwitchAppUpdate(bool value){
+    switchValueAppUpdate=value;
+    emit(NotificationsState());
+  }
+  ToggleSwitchPromotion(bool value){
+    switchValuePromotion=value;
+    emit(NotificationsState());
+  }
+  ToggleSwitchDiscount(bool value){
+    switchValueDiscount=value;
+    emit(NotificationsState());
+  }
+  ToggleSwitchPayment(bool value){
+    switchValuePayment=value;
+    emit(NotificationsState());
+  }
+  ToggleSwitchService(bool value){
+    switchValueService=value;
+    emit(NotificationsState());
+  }
+  ToggleSwitchTips(bool value){
+    switchValueTips=value;
+    emit(NotificationsState());
+  }
+
 
 }
