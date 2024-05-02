@@ -23,10 +23,11 @@ class MyApp extends StatelessWidget {
     ]);
     return MaterialApp(
       theme: ThemeData(
+        fontFamily: 'Poppins',
         useMaterial3: true,
         scaffoldBackgroundColor: Color(0xff13a795),
       ),debugShowCheckedModeBanner: false,
-      home: homepage(),
+      home: EditProfilePage(),
     );
   }
 }
