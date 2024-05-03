@@ -1,3 +1,4 @@
+import 'package:finalproject/widgets/constsnts.dart';
 import 'package:flutter/material.dart';
 
 Widget Prayer_times (Prayer,image,time){
@@ -23,6 +24,40 @@ Widget features (icon,name){
         Image(image: AssetImage(icon),width: 42,height: 42,),
         SizedBox(height: 5,),
         Text(name,style: TextStyle(fontSize: 11,color: Colors.black),)
+      ],
+    ),
+  );
+}
+
+Widget AzkarWidget(String title,context){
+  return  Container(
+    width: widthR(362, context),
+    height: heightR(54, context),
+    decoration: BoxDecoration(
+      color: Color(0xFFc7e7e3),
+      borderRadius:
+      BorderRadius.circular(sizeR(23, context)),
+    ),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.bookmark),
+          iconSize: sizeR(35, context),
+        ),
+        Spacer(flex: 5),
+
+        Text(
+          title,
+          style: TextStyle(fontSize: sizeR(18, context),),
+        ),
+        Spacer(flex: 1,),
+        Image(
+          image: AssetImage(
+            'assets/icons/Rectangle 998.png',
+          ),
+        ),
       ],
     ),
   );
