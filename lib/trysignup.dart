@@ -3,14 +3,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+class signup extends StatefulWidget {
+  const signup({Key? key}) : super(key: key);
 
   @override
-  State<Login> createState() => _LoginState();
+  State<signup> createState() => _signupState();
 }
 
-class _LoginState extends State<Login> {
+class _signupState extends State<signup> {
   late final TextEditingController _email;
   late final TextEditingController _password;
   final _formKey = GlobalKey<FormState>();
@@ -79,14 +79,15 @@ class _LoginState extends State<Login> {
                   if (_formKey.currentState!.validate()) {
                     try {
                       var requestBody = jsonEncode({
-                        // 'email': _email.text,
-                        // 'password': _password.text,
                         'email': "mohamedabdullah1348744@gmail.com",
                         'password': "joker#1234",
+                        'firstname': "Mohamed",
+                        'middlename': "Abdullah",
+                        'lastname ': "Mohamed",
                       });
                       var response = await http.post(
                         Uri.parse(
-                          'http://uswatest.ddns.net:3000/login',
+                          'http://uswatest.ddns.net:3000/signup',
                         ),
                         headers: {
                           'Content-Type':
@@ -98,7 +99,6 @@ class _LoginState extends State<Login> {
 
                       if (response.statusCode == 200 ||
                           response.statusCode == 400) {
-                        print(response.body);
                         print('Success');
                       } else {
                         print('Failed');
@@ -110,7 +110,7 @@ class _LoginState extends State<Login> {
                   // print(_email.text);
                   // print(_password.text);
                 },
-                child: const Text('Login'),
+                child: const Text('signup'),
               ),
             ),
           ],
