@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:finalproject/chatbot/chatBot.dart';
 import 'package:finalproject/pages/azkaePage.dart';
 import 'package:finalproject/pages/edit_profile.dart';
 import 'package:finalproject/pages/homepage.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         scaffoldBackgroundColor: Color(0xff13a795),
       ),debugShowCheckedModeBanner: false,
-      home: AzkarPage(),
+      home: homepage(),
     );
   }
 }

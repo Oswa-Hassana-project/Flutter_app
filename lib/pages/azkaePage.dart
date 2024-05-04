@@ -24,8 +24,7 @@ class AzkarPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      IconButton(
-                          onPressed: () {}, icon: Icon(Icons.arrow_back_ios)),
+                      IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.arrow_back_ios),),
                       Text(
                         'Azkar',
                         style: TextStyle(fontSize: sizeR(24, context)),

@@ -1,5 +1,9 @@
+import 'package:finalproject/chatbot/chatBot.dart';
 import 'package:finalproject/model/repositories.dart';
+import 'package:finalproject/pages/azkaePage.dart';
+import 'package:finalproject/pages/edit_profile.dart';
 import 'package:finalproject/pages/homepage.dart';
+import 'package:finalproject/pages/notificationsPage.dart';
 import 'package:finalproject/shared/cubit/cubit.dart';
 import 'package:finalproject/shared/cubit/states.dart';
 import 'package:finalproject/widgets/widgets.dart';
@@ -19,7 +23,6 @@ class homepage extends StatelessWidget {
 
         },
         builder: (context, state) {
-          DateTime now=DateTime.now();
           AppCubit cubit= AppCubit.get(context);
           //state is LoadingAppState ||
           if (state is AppInitalState) {
@@ -41,7 +44,7 @@ class homepage extends StatelessWidget {
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 45, left: 6, right: 29.7),
+                          padding: const EdgeInsets.only(top: 45, left: 6, right: 6),
                           child: Row(
                             children: [
                               RichText(
@@ -54,11 +57,20 @@ class homepage extends StatelessWidget {
                                             style: TextStyle(fontSize: 15))
                                       ])),
                               Spacer(),
-                              Icon(
+                              IconButton(onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfilePage() ,));
+                              }, icon: Icon(
+                                Icons.person,
+                                color: Colors.white,
+                                size: 30,
+                              )),
+                              IconButton(onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationsPage() ,));
+                              }, icon: Icon(
                                 Icons.notifications,
                                 color: Colors.white,
                                 size: 30,
-                              )
+                              ))
                             ],
                           ),
                         ),
@@ -69,7 +81,7 @@ class homepage extends StatelessWidget {
                             textAlign: TextAlign.center,
                             text: TextSpan(text: cubit.Time, style: TextStyle(fontSize: 48)
                                 ,children: [TextSpan(
-                                    text: '\nNext prayer: Asr in 37 minutes',style: TextStyle(fontSize: 15)
+                                    text: '\n',style: TextStyle(fontSize: 15) //Next prayer: Asr in ** minutes
                                 )]
                             )
                         ),
@@ -105,11 +117,11 @@ class homepage extends StatelessWidget {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      features('assets/icons/Chatbot-removebg-preview 1.png','ChatBot'),
-                                      features('assets/icons/Quran_Logo_PNG_Vector__EPS__Free_Download-removebg-preview 1.png','القرأن الكريم'),
-                                      features('assets/icons/img-YKRytuAHw3Rowfv_1672400372 1.png','القبلة'),
-                                      features('assets/icons/images__2_-removebg-preview 1.png','السيره النبويه'),
-                                      features('assets/icons/6049863 1.png','الأذكار'),
+                                      features('assets/icons/Chatbot-removebg-preview 1.png','ChatBot',ChatBot(),context),
+                                      features('assets/icons/Quran_Logo_PNG_Vector__EPS__Free_Download-removebg-preview 1.png','القرأن الكريم',ChatBot(),context),
+                                      features('assets/icons/img-YKRytuAHw3Rowfv_1672400372 1.png','القبلة',ChatBot(),context),
+                                      features('assets/icons/images__2_-removebg-preview 1.png','السيره النبويه',ChatBot(),context),
+                                      features('assets/icons/6049863 1.png','الأذكار',AzkarPage(),context),
                                     ],
                                   )
 

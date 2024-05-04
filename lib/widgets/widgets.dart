@@ -14,11 +14,11 @@ Widget Prayer_times (Prayer,image,time){
   );
 }
 
-Widget features (icon,name){
+Widget features (icon,name,newRoute,context){
   return InkWell(
     onTap: () {
-      print("click");
-    },
+      Navigator.push(context, MaterialPageRoute(builder: (context) => newRoute ,));
+      },
     child: Column(
       children: [
         Image(image: AssetImage(icon),width: 42,height: 42,),

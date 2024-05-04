@@ -47,9 +47,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           horizontal: widthR(24, context),
                           vertical: heightR(21, context)),
                       child: Column(children: [
-                        Text("Edit Profile",
-                            style:
-                            TextStyle(fontWeight: FontWeight.w500, fontSize: sizeR(22, context))),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.arrow_back_ios),),
+                            Center(
+                              child: Text("Edit Profile",
+                                  style:
+                                  TextStyle(fontWeight: FontWeight.w700, fontSize: sizeR(22, context)),),
+                            ),
+                            SizedBox(width: widthR(45, context),)
+                          ],
+                        ),
                         SizedBox(
                           height: heightR(24, context),
                         ),
