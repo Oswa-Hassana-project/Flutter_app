@@ -19,9 +19,12 @@ class AppCubit extends Cubit<AppStates>{
   DateTime now =DateTime.now();
   bool isPassword =true;
   String Time="";
+
+
   void PasswordIsShow (){
     isPassword =!isPassword;
     emit(PasswordShow());
+    fetchTime();
   }
   Future<void> fetchTime() async {
     //emit(LoadingAppState());
@@ -30,8 +33,6 @@ class AppCubit extends Cubit<AppStates>{
       final currentTime = DateTime.now();
       Time = '${currentTime.hour}:${currentTime.minute}';
       emit(LoadAzanTimeState(time));
-
-
     } catch (e) {
       print(e.toString());
       emit(ErrorAppState( e.toString()));

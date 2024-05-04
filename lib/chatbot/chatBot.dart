@@ -80,8 +80,9 @@ class ChatBot extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.arrow_back_ios),),
-              Icon(CupertinoIcons.back),
+              InkWell(
+                  onTap: () => Navigator.pop(context),
+                  child: Icon(CupertinoIcons.back)),
               Text("ChatBot",style: TextStyle(color: Colors.white,fontSize: sizeR(24, context),fontWeight: FontWeight.w700),),
                   SizedBox(width: 15,),
             ]),

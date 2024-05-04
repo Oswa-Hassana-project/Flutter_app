@@ -1,3 +1,4 @@
+import 'package:finalproject/shared/cubit/azkarCubit.dart';
 import 'package:finalproject/widgets/constsnts.dart';
 import 'package:flutter/material.dart';
 
@@ -29,36 +30,41 @@ Widget features (icon,name,newRoute,context){
   );
 }
 
-Widget AzkarWidget(String title,context){
-  return  Container(
-    width: widthR(362, context),
-    height: heightR(54, context),
-    decoration: BoxDecoration(
-      color: Color(0xFFc7e7e3),
-      borderRadius:
-      BorderRadius.circular(sizeR(23, context)),
-    ),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.bookmark),
-          iconSize: sizeR(35, context),
-        ),
-        Spacer(flex: 5),
-
-        Text(
-          title,
-          style: TextStyle(fontSize: sizeR(18, context),),
-        ),
-        Spacer(flex: 1,),
-        Image(
-          image: AssetImage(
-            'assets/icons/Rectangle 998.png',
+Widget AzkarWidget(String title,int index,context){
+  AzkarCubit cubit = AzkarCubit.get(context);
+  return  Padding(
+    padding:  EdgeInsets.only(top: heightR(16, context)),
+    child: Container(
+      width: widthR(362, context),
+      height: heightR(54, context),
+      decoration: BoxDecoration(
+        color: Color(0xFFc7e7e3),
+        borderRadius:
+        BorderRadius.circular(sizeR(23, context)),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          IconButton(
+            onPressed: () {
+              cubit.toggleBookmark(index);
+              },
+            icon: Icon(cubit.isBookmarked[index] ?Icons.bookmark:Icons.bookmark_border),
+            iconSize: sizeR(35, context),
           ),
-        ),
-      ],
+          Spacer(flex: 5),
+          Text(
+            title,
+            style: TextStyle(fontSize: sizeR(18, context),),
+          ),
+          Spacer(flex: 1,),
+          Image(
+            image: AssetImage(
+              'assets/icons/Rectangle 998.png',
+            ),
+          ),
+        ],
+      ),
     ),
   );
 }
