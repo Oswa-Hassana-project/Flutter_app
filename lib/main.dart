@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         scaffoldBackgroundColor: Color(0xff13a795),
       ),debugShowCheckedModeBanner: false,
-      home: AzkarPage(),
+      home: homepage(),
     );
   }
 }
