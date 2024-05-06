@@ -1,5 +1,6 @@
-import 'package:finalproject/model/azkarOpen.dart';
+import 'package:finalproject/model/azkarModel.dart';
 import 'package:finalproject/model/loadAzkar.dart';
+import 'package:finalproject/pages/azkarDetailsPage.dart';
 import 'package:finalproject/shared/cubit/azkarCubit.dart';
 import 'package:finalproject/shared/cubit/azkarStates.dart';
 import 'package:finalproject/widgets/constsnts.dart';
@@ -56,7 +57,7 @@ class AzkarPage extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 return InkWell(
                                     onTap: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => AzkarOpen() ,));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) =>  AzkarDetailsPage(title: Azkar[index].category,azkar: Azkar[index]),));
                                     },
                                     child: AzkarWidget(Azkar[index].category,index, context));
                               },),

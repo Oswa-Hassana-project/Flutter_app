@@ -16,12 +16,13 @@ class LoadAzkarData {
     }
   }
 
-  // List category = [];
-  // Future<void> readJson() async {
-  //   final String response = await rootBundle.loadString('assets/json/adhkar.json');
-  //   final data = await json.decode(response);
-  //   category = data["category"];
-  // }
 
 
 }
+
+// List category = [];
+// Future<void> readJson() async {
+//   final String response = await rootBundle.loadString('assets/json/adhkar.json');
+//   final data = await json.decode(response);
+//   category = data["category"];
+// }
