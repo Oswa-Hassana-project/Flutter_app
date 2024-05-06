@@ -1,0 +1,78 @@
+import 'package:flutter/material.dart';
+
+import '../styles/response.dart';
+import '../styles/standers.dart';
+
+class quranName extends StatelessWidget {
+  final String surahname;
+  final String surahnameenglish;
+  final String surahnameenglishtranslation;
+  const quranName({super.key, required this.surahname,required this.surahnameenglish,required this.surahnameenglishtranslation});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 50,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+
+        children: [
+          Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "$surahnameenglish",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w900,
+                      color: maincolor,
+                      fontFamily: 'assets/fonts/Poppins',
+                    ),
+                  ),
+                  Text(
+                    "verse 7",
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.normal,
+                      color: maincolor,
+                    ),
+                  ),
+                  Text(
+                    "(${surahnameenglishtranslation})",
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.normal,
+                      color: maincolor,
+                    ),
+                  ),
+                ],
+              ),
+              Spacer(),
+              Text(
+                "$surahname",
+                // overflow: TextOverflow.visible,
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w500,
+                  color: maincolor,
+                ),
+              ),
+
+            ],
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Divider(
+            color: maincolor,
+            thickness: 1,
+          ),
+        ],
+      ),
+    );
+  }
+}

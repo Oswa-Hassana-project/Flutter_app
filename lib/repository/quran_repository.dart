@@ -13,16 +13,29 @@ class quranRepository {
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body) as Map<String, dynamic>;
       final data = json['data'] as Map<String, dynamic>;
-      final surahs = data['surahs'] as Map<String, dynamic>;
-      final ayahs = data['surahs']['ayahs'] as Map<String, dynamic>;
+      final surahs = data['surahs'] as List<dynamic>; // Surahs is a list
 
-      final result = QuranModel(
-        number: surahs['number'],
-        name: surahs['name'] as String,
-        ayahs: ayahs['text'] as String,
-      );
+      // Assuming you want to process all surahs, you might need a loop here
+      final results = surahs.map((surah) {
+        final surahData = surah as Map<String, dynamic>;
+        final ayahs = surahData['ayahs'] as List<dynamic>; // Ayahs is a list
+        final ayahText = ayahs
+            .map((ayah) => ayah['text'])
+            .join('\n'); // Join ayah texts if needed
 
-      return [result];
+
+        return QuranModel(
+          number: surahData['number'],
+          name: surahData['name'] as String,
+          ayahs: ayahText as String,
+          englishName: surahData['englishName'],
+          englishNameTranslation : surahData['englishNameTranslation'],
+          array: ayahs.map((ayah) => QuranItem(ayahs: ayah['text'])).toList(),
+          revelationType: surahData['revelationType'],
+        );
+      }).toList();
+
+      return results;
     } else {
       throw Exception("the quran repository has error ${response.statusCode}");
       // throw Exception(response.reasonPhrase);

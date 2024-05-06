@@ -14,6 +14,7 @@ class QuranCubit extends Cubit<quranState>{
     }catch(e){
       // throw Exception("error in here ");
       emit(ErrorQuranState(e.toString()));
+      print(e.toString());
     }
 
   }

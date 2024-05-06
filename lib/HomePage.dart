@@ -14,6 +14,15 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return QuranPage1();
+    return Scaffold(
+      // body: NextScreen(results: [],),
+      body: QuranPage1(),
+
+      // Center(
+      //   child: ElevatedButton(
+      //       onPressed: ()=> fetchDataAndNavigate(context),
+      //       child: (Text('fetch data and navigate'))),
+      // ),
+    );
   }
 }
