@@ -28,6 +28,8 @@ class homepage extends StatelessWidget {
           if (state is AppInitalState) {
             return Scaffold(body: Center(child: CircularProgressIndicator()),);
           }else if (state is LoadAzanTimeState ) {
+            final hours = cubit.timeUntilNextPrayer.inHours;
+            final minutes = cubit.timeUntilNextPrayer.inMinutes.remainder(60);
             final AzanT = state.AzanTime;
             return Scaffold(
               body: Stack(
@@ -77,14 +79,20 @@ class homepage extends StatelessWidget {
                         SizedBox(
                           height: 60,
                         ),
-                        RichText(
-                            textAlign: TextAlign.center,
-                            text: TextSpan(text: cubit.Time, style: TextStyle(fontSize: 48)
-                                ,children: [TextSpan(
-                                    text: '\n',style: TextStyle(fontSize: 15) //Next prayer: Asr in ** minutes
-                                )]
-                            )
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text( cubit.Time, style: TextStyle(fontSize: 48,color: Colors.white)),
+                            Text('باقي علي صلاه ${cubit.nextPrayer}\t${minutes} : $hours',style: TextStyle(fontSize: 15,color: Colors.white),textDirection: TextDirection.rtl,
+                            ),
+                          ],
                         ),
+                          // RichText(
+                          //     textAlign: TextAlign.center,
+                          //     text: TextSpan(text: cubit.Time, style: TextStyle(fontSize: 48)
+                          //     )
+                          // ),
+
                         SizedBox(height: 60,),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal:50 ),
@@ -120,7 +128,7 @@ class homepage extends StatelessWidget {
                                       features('assets/icons/Chatbot-removebg-preview 1.png','ChatBot',ChatBot(),context),
                                       features('assets/icons/Quran_Logo_PNG_Vector__EPS__Free_Download-removebg-preview 1.png','القرأن الكريم',ChatBot(),context),
                                       features('assets/icons/img-YKRytuAHw3Rowfv_1672400372 1.png','القبلة',ChatBot(),context),
-                                      features('assets/icons/images__2_-removebg-preview 1.png','السيره النبويه',ChatBot(),context),
+                                     // features('assets/icons/images__2_-removebg-preview 1.png','السيره النبويه',ChatBot(),context),
                                       features('assets/icons/6049863 1.png','الأذكار',AzkarPage(),context),
                                     ],
                                   )
