@@ -5,6 +5,7 @@ import 'package:project/sign_up.dart';
 import 'package:project/trysignup.dart';
 
 import 'layout/Quran/quranhome.dart';
+import 'layout/forgetpassword.dart';
 import 'layout/profilepage.dart';
 import 'layout/quran_tru_get.dart';
 import 'layout/try.dart';
@@ -16,7 +17,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       // body: NextScreen(results: [],),
-      body: QuranPage1(),
+      body: loginPage(),
 
       // Center(
       //   child: ElevatedButton(

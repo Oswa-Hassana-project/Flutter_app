@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:project/models/quran_model.dart';
 import 'package:project/shared/styles/standers.dart';
 
+import '../../models/quran_model_english.dart';
 import '../../shared/styles/response.dart';
 
 class quranDetailsPage extends StatefulWidget {
   final QuranModel quran;
   final String surahname;
   final String surahtype;
-  const quranDetailsPage(
-      {super.key,
-      required this.quran,
-      required this.surahtype,
-      required this.surahname});
+  const quranDetailsPage({
+    super.key,
+    required this.quran,
+    required this.surahtype,
+    required this.surahname,
+  });
 
   @override
   State<quranDetailsPage> createState() => _quranDetailsPageState();
@@ -67,25 +69,34 @@ class _quranDetailsPageState extends State<quranDetailsPage> {
                   Padding(
                     padding: const EdgeInsets.all(26.0),
                     child: ListView.builder(
-                        itemCount: widget.quran.array.length,
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return Column(
+                      itemCount: widget.quran.array.length,
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return SizedBox(
+                          width: double.infinity,
+                          child: Column(
                             children: [
-                              Text(
-                                widget.quran.array[index].ayahs,
-                                textDirection: TextDirection.rtl,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500
-                                ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      widget.quran.array[index].ayahs,
+                                      textDirection: TextDirection.rtl,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              Divider(
-
-                              ),
+                              const Divider(),
                             ],
-                          );
-                        }),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -97,7 +108,7 @@ class _quranDetailsPageState extends State<quranDetailsPage> {
             decoration: BoxDecoration(
                 color: Color(0xFF16A896),
                 borderRadius:
-                    BorderRadius.vertical(bottom: Radius.circular(30))),
+                BorderRadius.vertical(bottom: Radius.circular(30))),
             child: Padding(
               padding: EdgeInsets.only(
                   top: heightR(49.2, context),

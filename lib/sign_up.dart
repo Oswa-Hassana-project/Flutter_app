@@ -105,7 +105,7 @@ class _sign_upState extends State<sign_up> {
                       }
                       // Use a regular expression to validate the email format
                       final emailRegExp =
-                          RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
+                      RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
                       if (!emailRegExp.hasMatch(value)) {
                         return 'Not a valid email address. Should be your@email.com';
                       }

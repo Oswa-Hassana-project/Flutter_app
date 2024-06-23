@@ -37,6 +37,7 @@ class _QuransurahsState extends State<Quransurahs> {
             );
           } else if (state is ResponseQuranState) {
             final qurans = state.qurans;
+            // final qurans_en = state.qurans_en;
             return Stack(
               children: [
                 Padding(
@@ -110,16 +111,23 @@ class _QuransurahsState extends State<Quransurahs> {
                             itemBuilder: (context, index) {
                               final quran = qurans[index];
                               return InkWell(
-                                onTap: (){
+                                onTap: () {
                                   Navigator.push(
                                       context,
-                                      MaterialPageRoute(builder: (context) =>
-                                          quranDetailsPage(quran: quran, surahtype: quran.revelationType, surahname: quran.englishName,),));
+                                      MaterialPageRoute(
+                                        builder: (context) => quranDetailsPage(
+                                          quran: quran,
+                                          surahtype: quran.revelationType,
+                                          surahname: quran.englishName,
+                                          // quran_en: quran,
+                                        ),
+                                      ));
                                 },
                                 child: Container(
                                   child: quranName(
                                     surahname: quran.name,
-                                    surahnameenglishtranslation: quran.englishNameTranslation,
+                                    surahnameenglishtranslation:
+                                        quran.englishNameTranslation,
                                     surahnameenglish: quran.englishName,
                                   ),
                                 ),
