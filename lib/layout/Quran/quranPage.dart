@@ -54,53 +54,57 @@ class _QuransurahsState extends State<Quransurahs> {
                           ),
                           width: widthR(296, context),
                           height: heightR(128, context),
-                          child: const Padding(
+                          child:  Padding(
                             padding: EdgeInsets.all(16.0),
-                            child: Row(
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.menu_book,
-                                          size: 25,
-                                        ),
-                                        SizedBox(
-                                          width: 7,
-                                        ),
-                                        Text(
-                                          "Last Read",
-                                          style: TextStyle(
-                                            fontSize: 15,
+                            child: InkWell(
+                              onTap: (){},
+                              child: Row(
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            Icons.menu_book,
+                                            size: 25,
                                           ),
+                                          SizedBox(
+                                            width: 7,
+                                          ),
+                                          Text(
+                                            "Last Read",
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 15,
+                                      ),
+                                      Text(
+                                        'Al-Fatiha',
+                                        style: TextStyle(
+                                          fontSize: 15,
                                         ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 15,
-                                    ),
-                                    Text(
-                                      'Al-Fatiha',
-                                      style: TextStyle(
-                                        fontSize: 15,
                                       ),
-                                    ),
-                                    Text(
-                                      'Ayah no.1',
-                                      style: TextStyle(
-                                        fontSize: 10,
+                                      //ayahs no
+                                      Text(
+                                        'Ayah no.1',
+                                        style: TextStyle(
+                                          fontSize: 10,
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                Spacer(),
-                                Icon(
-                                  Icons.book,
-                                  size: 100,
-                                ),
-                              ],
+                                    ],
+                                  ),
+                                  Spacer(),
+                                  Icon(
+                                    Icons.book,
+                                    size: 100,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -115,10 +119,11 @@ class _QuransurahsState extends State<Quransurahs> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => quranDetailsPage(
+                                        builder: (context) => QuranDetailsPage(
                                           quran: quran,
                                           surahtype: quran.revelationType,
                                           surahname: quran.englishName,
+
                                           // quran_en: quran,
                                         ),
                                       ));
@@ -129,6 +134,7 @@ class _QuransurahsState extends State<Quransurahs> {
                                     surahnameenglishtranslation:
                                         quran.englishNameTranslation,
                                     surahnameenglish: quran.englishName,
+                                    ayahsNumber: quran.ayahsNumber.toString(),
                                   ),
                                 ),
                               );

@@ -7,11 +7,13 @@ class quranName extends StatelessWidget {
   final String surahname;
   final String surahnameenglish;
   final String surahnameenglishtranslation;
+  final String ayahsNumber;
   const quranName({
     super.key,
     required this.surahname,
     required this.surahnameenglish,
-    required this.surahnameenglishtranslation
+    required this.surahnameenglishtranslation,
+    required this.ayahsNumber,
   });
 
   @override
@@ -22,7 +24,6 @@ class quranName extends StatelessWidget {
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-
         children: [
           Row(
             children: [
@@ -39,7 +40,7 @@ class quranName extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "verse 7",
+                    "verse ${ayahsNumber}",
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.normal,
@@ -66,7 +67,6 @@ class quranName extends StatelessWidget {
                   color: maincolor,
                 ),
               ),
-
             ],
           ),
           SizedBox(
@@ -86,12 +86,11 @@ class quranNameEN extends StatelessWidget {
   final String surahname;
   final String surahnameenglish;
   final String surahnameenglishtranslation;
-  const quranNameEN({
-    super.key,
-    required this.surahname,
-    required this.surahnameenglish,
-    required this.surahnameenglishtranslation
-  });
+  const quranNameEN(
+      {super.key,
+      required this.surahname,
+      required this.surahnameenglish,
+      required this.surahnameenglishtranslation});
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +100,6 @@ class quranNameEN extends StatelessWidget {
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-
         children: [
           Row(
             children: [
@@ -145,7 +143,6 @@ class quranNameEN extends StatelessWidget {
                   color: maincolor,
                 ),
               ),
-
             ],
           ),
           SizedBox(

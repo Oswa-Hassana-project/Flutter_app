@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/HomePage.dart';
-import 'package:project/layout/profilepage.dart';
+import 'package:project/layout/profilepages/profilepage.dart';
 import 'package:project/sign_up.dart';
 import 'package:bloc/bloc.dart';
 
@@ -16,8 +16,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-        home:  HomePage());
+    return MaterialApp(debugShowCheckedModeBanner: false, home: HomePage());
   }
 }

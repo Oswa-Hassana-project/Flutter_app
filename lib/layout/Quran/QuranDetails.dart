@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:project/models/quran_model.dart';
 import 'package:project/shared/styles/standers.dart';
 
-import '../../models/quran_model_english.dart';
 import '../../shared/styles/response.dart';
 
-class quranDetailsPage extends StatefulWidget {
+class QuranDetailsPage extends StatefulWidget {
   final QuranModel quran;
   final String surahname;
   final String surahtype;
-  const quranDetailsPage({
+
+  const QuranDetailsPage({
     super.key,
     required this.quran,
     required this.surahtype,
@@ -17,10 +17,10 @@ class quranDetailsPage extends StatefulWidget {
   });
 
   @override
-  State<quranDetailsPage> createState() => _quranDetailsPageState();
+  State<QuranDetailsPage> createState() => _QuranDetailsPageState();
 }
 
-class _quranDetailsPageState extends State<quranDetailsPage> {
+class _QuranDetailsPageState extends State<QuranDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +51,7 @@ class _quranDetailsPageState extends State<quranDetailsPage> {
                           ),
                           Spacer(),
                           Text(
-                            "verse 7 , ",
+                            "verse  ,${widget.quran.ayahsNumber} ",
                             style: TextStyle(
                               color: Colors.white,
                             ),
@@ -69,29 +69,36 @@ class _quranDetailsPageState extends State<quranDetailsPage> {
                   Padding(
                     padding: const EdgeInsets.all(26.0),
                     child: ListView.builder(
-                      itemCount: widget.quran.array.length,
+                      itemCount: widget.quran.array_ayahs.length,
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
+                        // Concatenate Ayah text and Ayah number
+                        final ayahTextWithNumber =
+                            "${widget.quran.array_ayahs[index].ayahs} (${widget.quran.array_ayahs[index].ayahsNumber})";
+
                         return SizedBox(
                           width: double.infinity,
                           child: Column(
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   Expanded(
-                                    flex: 1,
-                                    child: Text(
-                                      widget.quran.array[index].ayahs,
-                                      textDirection: TextDirection.rtl,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w500),
+                                    child: Center(
+                                      child: Text(
+                                        ayahTextWithNumber,
+                                        textAlign: TextAlign.justify,
+                                        textDirection: TextDirection.rtl,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w500),
+                                      ),
                                     ),
                                   ),
                                 ],
                               ),
-                              const Divider(),
+                              const Divider(
+                                thickness: 2,
+                              ),
                             ],
                           ),
                         );
@@ -108,7 +115,7 @@ class _quranDetailsPageState extends State<quranDetailsPage> {
             decoration: BoxDecoration(
                 color: Color(0xFF16A896),
                 borderRadius:
-                BorderRadius.vertical(bottom: Radius.circular(30))),
+                    BorderRadius.vertical(bottom: Radius.circular(30))),
             child: Padding(
               padding: EdgeInsets.only(
                   top: heightR(49.2, context),

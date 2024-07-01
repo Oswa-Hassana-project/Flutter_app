@@ -39,6 +39,10 @@ dependencies:
   dio: ^5.4.3+1
   flutter_bloc: ^8.1.5
   bloc: ^8.1.4
+  shared_preferences: ^2.2.3
+#  smooth_compass_new: ^0.0.2
+#  smooth_compass: ^2.0.17
+#  smooth_compass_plus: ^0.0.1+6
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +77,8 @@ flutter:
   assets:
     - assets/logo/oswah.png
     - assets/images/forgetpassword.png
+    - assets/images/compass.jpg
+    - assets/images/Qiblah.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

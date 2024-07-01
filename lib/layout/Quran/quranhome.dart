@@ -11,7 +11,7 @@ class QuranPage1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => QuranCubit(quranRepository()),
+      create: (context) => QuranCubit(QuranRepository()),
       child: Quransurahs(),
 
     );

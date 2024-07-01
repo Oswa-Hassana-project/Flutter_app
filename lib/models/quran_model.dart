@@ -5,7 +5,8 @@ class QuranModel {
   final String englishName;
   final String englishNameTranslation;
   final String revelationType;
-  final List<QuranItem> array; // Correct type here
+  final int ayahsNumber;
+  final List<QuranItem> array_ayahs;
 
   QuranModel({
     required this.number,
@@ -14,8 +15,8 @@ class QuranModel {
     required this.englishName,
     required this.englishNameTranslation,
     required this.revelationType,
-    required this.array, // Correct type here
-
+    required this.array_ayahs,
+    required this.ayahsNumber,
   });
 
   factory QuranModel.fromJson(Map<String, dynamic> json) {
@@ -24,22 +25,30 @@ class QuranModel {
     return QuranModel(
       number: json['number'],
       name: json['name'],
-      ayahs: ayahs.map((ayah) => ayah['text']).join('\n'), // Join ayahs
+      ayahs: ayahs.map((ayah) => ayah['text']).join('\n'),
+      ayahsNumber:
+          ayahs.map((ayah) => ayah['numberInSurah']).toList()[0],
       englishName: json['englishName'],
       englishNameTranslation: json['englishNameTranslation'],
-      array: ayahs.map((ayah) => QuranItem(ayahs: ayah['text'])).toList(),
+      array_ayahs: ayahs.map((ayah) => QuranItem.fromJson(ayah)).toList(),
       revelationType: json['revelationType'],
     );
   }
 }
+
 class QuranItem {
   final String ayahs;
+  final int ayahsNumber;
 
-  QuranItem({required this.ayahs});
+  QuranItem({
+    required this.ayahs,
+    required this.ayahsNumber,
+  });
 
   factory QuranItem.fromJson(Map<String, dynamic> json) {
     return QuranItem(
-      ayahs: json['data']['surahs']['ayahs']['text'],
+      ayahs: json['text'],
+      ayahsNumber: json['numberInSurah'],
     );
   }
 }
