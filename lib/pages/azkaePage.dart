@@ -1,4 +1,3 @@
-import 'package:finalproject/model/azkarModel.dart';
 import 'package:finalproject/model/loadAzkar.dart';
 import 'package:finalproject/pages/azkarDetailsPage.dart';
 import 'package:finalproject/pages/saved_Azkar.dart';
@@ -44,7 +43,7 @@ class AzkarPage extends StatelessWidget {
                               onPressed: () => Navigator.pop(context),
                               icon: Icon(Icons.arrow_back_ios),),
                             Text(
-                              'Azkar',
+                              'الأذكار',
                               style: TextStyle(fontSize: sizeR(24, context)),
                             ),
                             IconButton(

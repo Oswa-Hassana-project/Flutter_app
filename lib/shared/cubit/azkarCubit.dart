@@ -15,7 +15,6 @@ class AzkarCubit extends Cubit<AzkarStates>{
   List<Azkar> allData = [];
   List<Azkar> savedData = [];
   List<bool> isBookmarked = [];
-  List<bool> isBookmarkeds = [];
 
 
 
@@ -47,12 +46,15 @@ class AzkarCubit extends Cubit<AzkarStates>{
   Future<void> _saveBookmark(Azkar azkar) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('bookmark_${azkar.id}', azkar.isBookmarked);
+    print("add${azkar.id}");
   }
 
   Future<void> _removeBookmark(Azkar azkar) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove('bookmark_${azkar.id}');
+    print("remove${azkar.id}");
   }
+
 
   // void toggleBookmark(int index) async {
   //   if (state is LoadAzkarState) {
@@ -76,25 +78,43 @@ class AzkarCubit extends Cubit<AzkarStates>{
   // }
   void toggleBookmark(int index) async{
     if (state is LoadAzkarState) {
-      List<Azkar> updatedAzkarList = List.from((state as LoadAzkarState).GetAzkar); // Make a copy of the current Azkar list
-      if (index >= 0 && index < updatedAzkarList.length) { // Ensure index is valid
-        isBookmarked[index] = !isBookmarked[index];
-        updatedAzkarList[index].isBookmarked = isBookmarked[index]; // Update the bookmark status for the specified index
-        emit(LoadAzkarState(updatedAzkarList)); // Emit the updated state with the modified list
-        if (updatedAzkarList[index].isBookmarked) {
-          savedData.add(updatedAzkarList[index]);
-        } else {
-          savedData.removeWhere(
-                  (element) => element.id == updatedAzkarList[index].id);
-          await _removeBookmark(updatedAzkarList[index]);
+    List<Azkar> updatedAzkarList = List.from((state as LoadAzkarState).GetAzkar); // Make a copy of the current Azkar list
+    if (index >= 0 && index < updatedAzkarList.length) { // Ensure index is valid
+    isBookmarked[index] = !isBookmarked[index];
+    updatedAzkarList[index].isBookmarked = isBookmarked[index]; // Update the bookmark status for the specified index
+    emit(LoadAzkarState(updatedAzkarList)); // Emit the updated state with the modified list
+    if (updatedAzkarList[index].isBookmarked) {
+    savedData.add(updatedAzkarList[index]);
+    } else {
+    savedData.removeWhere(
+    (element) => element.id == updatedAzkarList[index].id);
+    await _removeBookmark(updatedAzkarList[index]);
         }
         allData=updatedAzkarList;
         await _saveBookmark(allData[index]);
         emit(LoadAzkarState(
                       List.from(allData)));
-        print(savedData.length);
+        print(_saveBookmark);
       }
     }
+  }
+  void toggleBookmarkByAzkar(Azkar azkar) async {
+    azkar.isBookmarked = !azkar.isBookmarked;
+    if (azkar.isBookmarked) {
+      savedData.add(azkar);
+    } else {
+      savedData.removeWhere((element) => element.id == azkar.id);
+    }
+    await _saveBookmark(azkar);
+    emit(LoadAzkarState(List.from(allData)));
+  }
+  void removeBookmark(Azkar azkar) async {
+    azkar.isBookmarked = false;
+
+    savedData.removeWhere((element) => element.id == azkar.id);
+    await _saveBookmark(azkar);
+    emit(LoadAzkarState(List.from(allData)));
+
   }
 
   bool isBook=false;

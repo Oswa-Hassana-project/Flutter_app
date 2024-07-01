@@ -235,7 +235,10 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Future openDialog() =>
       showConfirmationDialog(context: context,title: 'Choose ChatBot type',actions: [AlertDialogAction(key: 0, label: 'Gemine'),
-        AlertDialogAction(key: 1, label: 'Match',isDefaultAction: true,isDestructiveAction: true)], );
+        AlertDialogAction(key: 1, label: 'Match',isDefaultAction: true,isDestructiveAction: true),
+        AlertDialogAction(key: 2, label: 'AceGpt')
+      ]
+        , );
 
   Future<void> _askedToLead() async {
      await showDialog(
@@ -261,6 +264,15 @@ class _ChatScreenState extends State<ChatScreen> {
                   Navigator.pop(context); },
                 child: const Text('Gemini'),
               ),
+              SimpleDialogOption(
+                onPressed: () {
+                  setState(() {
+                    chatbotType = 'localbot';
+                  });
+                  Navigator.pop(context); },
+                child: const Text('AceGpt'),
+              ),
+
             ],
           );
         }
