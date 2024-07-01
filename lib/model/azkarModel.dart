@@ -16,7 +16,7 @@ class Azkar {
       audio: json['audio'],
       filename: json['filename'],
       array: (json['array'] as List).map((item) => AzkarItem.fromJson(item)).toList(),
-        isBookmarked: false
+      isBookmarked: json['isBookmarked'] ?? false,
     );
   }
 }
@@ -28,7 +28,7 @@ class AzkarItem {
   final String audio;
   final String filename;
 
-  AzkarItem({required this.id, required this.text,required this.count,required this.audio,required this.filename});
+  AzkarItem({required this.id, required this.text,required this.count,required this.audio,required this.filename, required bool isBookmarked});
 
   factory AzkarItem.fromJson(Map<String, dynamic> json) {
     return AzkarItem(
@@ -37,6 +37,7 @@ class AzkarItem {
       count: json['count'],
       audio: json['audio'],
       filename: json['filename'],
+      isBookmarked:false,
     );
   }
 }

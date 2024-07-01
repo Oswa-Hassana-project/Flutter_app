@@ -1,11 +1,24 @@
 import 'package:finalproject/model/repositories.dart';
 import 'package:finalproject/shared/cubit/cubit.dart';
 import 'package:finalproject/shared/cubit/states.dart';
+import 'package:finalproject/widgets/constsnts.dart';
 import 'package:finalproject/widgets/text_form_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
+import 'dart:convert';
+import 'dart:io';
+import 'package:http/io_client.dart';
+
+HttpClient createHttpClient() {
+  final HttpClient client = HttpClient()
+    ..badCertificateCallback =
+        (X509Certificate cert, String host, int port) => true;
+  return client;
+}
+
+final IOClient httpClient = IOClient(createHttpClient());
 
 class sign_up extends StatefulWidget {
 
@@ -41,7 +54,7 @@ class _sign_upState extends State<sign_up> {
               SingleChildScrollView(
                 child: SafeArea(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 40,horizontal: 29),
+                    padding:  EdgeInsets.symmetric(vertical: heightR(40, context),horizontal: widthR(29, context)),
                     child: Form(
                       key: formKey,
                       child: Column(
@@ -51,36 +64,36 @@ class _sign_upState extends State<sign_up> {
                           Text("SIGN UP",style: TextStyle(fontSize: 48,color: Colors.white),),
                           Row(
                             children: [
-                              SizedBox(
-                                height: 50,
-                                width: 154.5,
-                                child: TextFormWidget(keyboardType: TextInputType.name,label:"First Name",Controller: firstnameController,
-                                  validator: (value){
-                                    if (value == null || value == '') {
-                                      return 'Please Enter first name';
-                                    }
-                                    return null;
-                                  },
-                                  preIcon: Icons.person,
+                              Expanded(
+                                child: SizedBox(
+                                  child: TextFormWidget(keyboardType: TextInputType.name,label:"First Name",Controller: firstnameController,
+                                    validator: (value){
+                                      if (value == null || value == '') {
+                                        return 'Please Enter first name';
+                                      }
+                                      return null;
+                                    },
+                                    preIcon: Icons.person,
+                                  ),
                                 ),
                               ),
-                              SizedBox(width: 17,),
-                              SizedBox(
-                                height: 50,
-                                width: 154.5,
-                                child: TextFormWidget(keyboardType: TextInputType.name,label:"Mid Name",Controller: midController,
-                                  validator: (value){
-                                    if (value == null || value == '') {
-                                      return 'Please Enter Middle Name';
-                                    }
-                                    return null;
-                                  },
-                                  preIcon: Icons.person,
+                              SizedBox(width: widthR(17, context),),
+                              Expanded(
+                                child: SizedBox(
+                                  child: TextFormWidget(keyboardType: TextInputType.name,label:"Mid Name",Controller: midController,
+                                    validator: (value){
+                                      if (value == null || value == '') {
+                                        return 'Please Enter Middle Name';
+                                      }
+                                      return null;
+                                    },
+                                    preIcon: Icons.person,
+                                  ),
                                 ),
                               )
                             ],
                           ),
-                          SizedBox(height: 14,),
+                          SizedBox(height: heightR(14, context),),
                           TextFormWidget(keyboardType: TextInputType.name,label:"Last Name",Controller: lastController,
                             validator: (value){
                               if (value == null || value == '') {
@@ -90,7 +103,7 @@ class _sign_upState extends State<sign_up> {
                             },
                             preIcon: Icons.person,
                           ),
-                          SizedBox(height: 14,),
+                          SizedBox(height: heightR(14, context),),
                           TextFormWidget(keyboardType: TextInputType.emailAddress,label:"Email",Controller: emailController,
                             validator: (value){
                               if (value!.isEmpty ) {
@@ -106,7 +119,7 @@ class _sign_upState extends State<sign_up> {
                             },
                             preIcon: Icons.email,
                           ),
-                          SizedBox(height: 14,),
+                          SizedBox(height: heightR(14, context),),
                           TextFormWidget(keyboardType: TextInputType.visiblePassword,label:"Password",
                             Controller: passwordController,
                             ispassword: cubit.isPassword,
@@ -136,7 +149,7 @@ class _sign_upState extends State<sign_up> {
                             controller: passwordController,
 
                           ),
-                          SizedBox(height: 14,),
+                          SizedBox(height: heightR(14, context),),
                           TextFormWidget(keyboardType: TextInputType.visiblePassword,label:"Confirm Password",Controller: conf_passControler,
                             validator: (value){
                               if (value == null || value == '') {
@@ -153,22 +166,59 @@ class _sign_upState extends State<sign_up> {
                             },
                             preIcon: Icons.lock,
                           ),
-                          SizedBox(height: 14,),
-                          ElevatedButton(onPressed: (){
-                            if(formKey.currentState!.validate()){
-                              print(passwordController.text);
+                          SizedBox(height: heightR(14, context),),
+                          ElevatedButton(onPressed: () async {
+                            if (formKey.currentState!.validate()) {
+                              try {
+                                var requestBody = jsonEncode({
+                                   'data': {
+                                    'firstname' :firstnameController.text,
+                                    'middlename' : midController.text,
+                                    'lastname' : lastController.text,
+                                    'email' : emailController.text,
+                                    'password' : passwordController.text
+
+                                }});
+                                var response = await httpClient.post(
+                                  Uri.parse(
+                                    'https://uswahasana.ddns.net/account/createUserAccount',
+                                  ),
+                                  headers: {
+                                    'Content-Type': 'application/json',
+                                    'USKSCH':'yXccy2jyLA8jCSzoo37ma6EWnk9V8E4lGubVBZs5vYB1vvBqgxcDfQpGRWmVUirX1UjdkdQoujqnERqSuJClugUCsi77'
+                                  },
+                                  body: requestBody,
+                                );
+                                print(response.statusCode);
+                                print(response.body);
+                                // Map<String, dynamic> data =
+                                // json.decode(response.body);
+                                if (response.statusCode == 200) {
+                                  print('Success');
+                                } else if (response.statusCode == 400) {
+                                  print("bad requist");
+                                } else {
+                                  print('Failed');
+                                }
+                              } catch (e) {
+                                print(e.toString());
+                              }
                             }
-                          },style:
+
+                          },
+
+
+                              style:
                           ElevatedButton.styleFrom(backgroundColor: Color(0xff004038),
-                              fixedSize: Size(double.maxFinite, 48),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17))
+                              fixedSize: Size(double.maxFinite, sizeR(48, context)),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(sizeR(17, context)))
                           ),
                               child: Text("SIGN UP",style: TextStyle(color: Colors.white),)),
-                          SizedBox(height: 26,),
+                          SizedBox(height: heightR(26, context),),
                           Row(
                             children: [
-                              Text("Already have an Account?",style: TextStyle(color: Color(0xff004038),fontWeight: FontWeight.bold),),
-                              SizedBox(width: 5,),
+                              Text("Already have an Account?",style: TextStyle(color: Color(0xff004038),fontWeight: FontWeight.w500),),
+                              SizedBox(width: widthR(5, context),),
                               InkWell(
                                   onTap: (){},
                                   child: Text("Sign in",style: TextStyle(color: Colors.white),)),

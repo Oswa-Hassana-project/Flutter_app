@@ -4,6 +4,7 @@ import 'package:finalproject/widgets/constsnts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vibration/vibration.dart';
 
 class ProfileCubit extends Cubit<ProfileStates>{
   ProfileCubit() : super(AppInitalState());
@@ -52,6 +53,12 @@ class ProfileCubit extends Cubit<ProfileStates>{
   }
   ToggleSwitchVibrate(bool value){
     switchValueVibrate=value;
+    if(value==true){
+      vibrateDevice();
+      Vibration.vibrate(duration: 100);
+    }else{
+      cancelVibration();
+    }
     emit(NotificationsState());
   }
   ToggleSwitchPrayer(bool value){
@@ -82,6 +89,15 @@ class ProfileCubit extends Cubit<ProfileStates>{
     switchValueTips=value;
     emit(NotificationsState());
   }
-
+  void cancelVibration() {
+    if (Vibration.hasVibrator() != null) {
+      Vibration.cancel();
+    }
+  }
+  void vibrateDevice() {
+    if (Vibration.hasVibrator() != null) {
+      Vibration.vibrate();
+    }
+  }
 
 }

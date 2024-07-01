@@ -1,6 +1,7 @@
 import 'package:finalproject/model/azkarModel.dart';
 import 'package:finalproject/model/loadAzkar.dart';
 import 'package:finalproject/pages/azkarDetailsPage.dart';
+import 'package:finalproject/pages/saved_Azkar.dart';
 import 'package:finalproject/shared/cubit/azkarCubit.dart';
 import 'package:finalproject/shared/cubit/azkarStates.dart';
 import 'package:finalproject/widgets/constsnts.dart';
@@ -15,15 +16,16 @@ class AzkarPage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return BlocProvider(
-      create: (context) =>
-      AzkarCubit(LoadAzkarData())
-        ..loadJsonData(),
+      create: (context) => AzkarCubit(LoadAzkarData())..loadJsonData(),
+
       child: BlocConsumer<AzkarCubit, AzkarStates>(
         listener: (context, state) {},
         builder: (context, state) {
           AzkarCubit cubit = AzkarCubit.get(context);
-          if (state is AppInitalState ) {
-            return Scaffold(body: Center(child: CircularProgressIndicator()),);
+          if(state is LoadingAppState || state is AppInitalState){
+            return Scaffold(
+                backgroundColor: Colors.white,
+                body: Center(child: CircularProgressIndicator(color: Color(0xff13a795),)));
           } else if (state is LoadAzkarState) {
             final Azkar = state.GetAzkar;
             return Scaffold(
@@ -46,7 +48,9 @@ class AzkarPage extends StatelessWidget {
                               style: TextStyle(fontSize: sizeR(24, context)),
                             ),
                             IconButton(
-                                onPressed: () {}, icon: Icon(Icons.search)),
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => SavedAzkar(cubit: cubit),));
+                                }, icon: Icon(Icons.save)),
                           ],
                         ),
                         Expanded(
@@ -59,7 +63,9 @@ class AzkarPage extends StatelessWidget {
                                     onTap: () {
                                       Navigator.push(context, MaterialPageRoute(builder: (context) =>  AzkarDetailsPage(title: Azkar[index].category,azkar: Azkar[index]),));
                                     },
-                                    child: AzkarWidget(Azkar[index].category,index, context));
+                                    child: AzkarWidget(Azkar[index].category,index,Azkar[index].isBookmarked, context,onBookmarkToggle: () {
+                                      cubit.toggleBookmark(index);
+                                    }),);
                               },),
                         )
 

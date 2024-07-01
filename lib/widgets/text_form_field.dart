@@ -1,4 +1,4 @@
-import 'package:finalproject/shared/focusnode.dart';
+import 'package:finalproject/services/focusnode.dart';
 import 'package:finalproject/widgets/constsnts.dart';
 import 'package:flutter/material.dart';
 
@@ -58,10 +58,11 @@ class TextFormWidget extends StatelessWidget {
         controller: Controller,
         obscureText: ispassword,
         decoration: InputDecoration(
+
           label: Text(
             label,
             style: TextStyle(
-                fontSize: sizeR(16, context),
+                fontSize: sizeR(15, context),
                 color: Color(0xff80000000),
                 fontWeight: FontWeight.bold),
           ),
@@ -69,7 +70,11 @@ class TextFormWidget extends StatelessWidget {
           filled: true,
           border: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(radius ?? 17))),
-          prefixIcon: preIcon != null ? Icon(preIcon) : null,
+          prefixIcon: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: preIcon != null ? Icon(preIcon) : null,
+          ),
+          prefixIconConstraints:BoxConstraints.tightFor() ,
           suffixIcon: sufIcon != null
               ? IconButton(onPressed: suffixPressed, icon: Icon(sufIcon))
               : null,
@@ -77,6 +82,7 @@ class TextFormWidget extends StatelessWidget {
         readOnly: readonly ==true ? true : false  ,
         focusNode: readonly ==true ? FocusNNN() : null ,
         enableInteractiveSelection: readonly ==true ? false : true  ,
+
       ),
     );
   }

@@ -30,13 +30,14 @@ Widget features (icon,name,newRoute,context){
   );
 }
 
-Widget AzkarWidget(String title,int index,context){
+Widget AzkarWidget(String title,int index,isBook,context,{required  VoidCallback onBookmarkToggle}){
   AzkarCubit cubit = AzkarCubit.get(context);
+
   return  Padding(
     padding:  EdgeInsets.only(top: heightR(16, context)),
     child: Container(
       width: widthR(362, context),
-      height: heightR(54, context),
+      height: heightR(60, context),
       decoration: BoxDecoration(
         color: Color(0xFFc7e7e3),
         borderRadius:
@@ -44,20 +45,23 @@ Widget AzkarWidget(String title,int index,context){
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
+
         children: [
           IconButton(
-            onPressed: () {
-              cubit.toggleBookmark(index);
-              },
-            icon: Icon(cubit.isBookmarked[index] ?Icons.bookmark:Icons.bookmark_border),
+            onPressed: onBookmarkToggle,
+            icon: Icon( isBook
+                ? Icons.bookmark
+                : Icons.bookmark_border,),
             iconSize: sizeR(35, context),
           ),
-          Spacer(flex: 5),
-          Text(
-            title,
-            style: TextStyle(fontSize: sizeR(18, context),),
+          Expanded(
+            child: Text(
+              title,
+              style: TextStyle(fontSize: sizeR(18, context),fontWeight: FontWeight.w700 ),
+              textDirection: TextDirection.rtl,
+            ),
           ),
-          Spacer(flex: 1,),
+
           Image(
             image: AssetImage(
               'assets/icons/Rectangle 998.png',

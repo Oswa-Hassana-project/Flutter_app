@@ -9,6 +9,7 @@ class LoadAzkarData {
       final  jsonString = await rootBundle.loadString('assets/json/adhkar.json');
       final jsonData = jsonDecode(jsonString) as List;
       return jsonData.map((item) => Azkar.fromJson(item)).toList();
+
     } catch (e) {
       String Error=e.toString();
       print("Error loading JSON data: $Error");

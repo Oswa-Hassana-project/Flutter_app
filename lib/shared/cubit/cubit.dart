@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:ffi';
 import 'package:finalproject/model/dataModel.dart';
 import 'package:finalproject/model/repositories.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,6 +23,9 @@ class AppCubit extends Cubit<AppStates>{
   String Time="";
   Duration timeUntilNextPrayer = Duration.zero;
   String nextPrayer = "";
+  DateTime? mostRecentPrayerTime;
+  Duration? timeFromLastPrayer= Duration.zero;
+  String mostRecentPrayerName2 = "";
 
   void PasswordIsShow (){
     isPassword =!isPassword;
@@ -53,6 +57,7 @@ class AppCubit extends Cubit<AppStates>{
 
     DateTime nearestPrayerTime = DateTime(now.year, now.month, now.day, 23, 59);
     String nextPrayerName = "";
+    String mostRecentPrayerName = "";
 
     for (var prayer in prayers) {
       DateTime prayerTime = DateTime(
@@ -63,21 +68,33 @@ class AppCubit extends Cubit<AppStates>{
         int.parse(prayer["time"]!.split(":")[1]),
       );
 
-      // Check if the prayer time is after the current time and closer than previously found
       if (prayerTime.isAfter(now) && prayerTime.isBefore(nearestPrayerTime)) {
         nearestPrayerTime = prayerTime;
         nextPrayerName = prayer["name"]!;
+        nextPrayer = nextPrayerName;
+      }
+
+      if (prayerTime.isBefore(now)) {
+        if (mostRecentPrayerTime == null || prayerTime.isAfter(mostRecentPrayerTime!)) {
+          mostRecentPrayerTime = prayerTime;
+          mostRecentPrayerName = prayer["name"]!;
+        }
       }
     }
-
-    // If nearest prayer time is before current time, it's for tomorrow
-    if (nearestPrayerTime.isBefore(now)) {
-      nearestPrayerTime = nearestPrayerTime.add(Duration(days: 1));
+      if (nextPrayerName.isEmpty) {
+        nextPrayer = nextPrayerName;
+        // All prayers for the day are done
+      if (nextPrayerName.isEmpty && mostRecentPrayerTime != null) {
+        timeFromLastPrayer = now.difference(mostRecentPrayerTime!);
+        print(mostRecentPrayerName);
+        print('${timeFromLastPrayer?.inHours} : ${timeFromLastPrayer!.inMinutes%60} minutes.');
+      }else{
+      // Set the next prayer for the next day (e.g., Fajr of the next day)
+      nearestPrayerTime = DateTime(now.year, now.month, now.day + 1, int.parse(prayers[0]["time"]!.split(":")[0]), int.parse(prayers[0]["time"]!.split(":")[1]));
+      nextPrayerName = prayers[0]["name"]!;}
     }
-
     // Calculate time until the next prayer
     timeUntilNextPrayer = nearestPrayerTime.difference(now);
-    nextPrayer = nextPrayerName;
   }
 
 
