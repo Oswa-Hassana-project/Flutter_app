@@ -4,6 +4,7 @@ import 'package:finalproject/chatbot/chatBot.dart';
 import 'package:finalproject/pages/azkaePage.dart';
 import 'package:finalproject/pages/chatPage.dart';
 import 'package:finalproject/pages/edit_profile.dart';
+import 'package:finalproject/pages/elqepla_page.dart';
 import 'package:finalproject/pages/homepage.dart';
 import 'package:finalproject/pages/notificationsPage.dart';
 import 'package:finalproject/pages/sign_up.dart';

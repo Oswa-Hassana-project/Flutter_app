@@ -28,6 +28,7 @@ class _AzkarDetailsPageState extends State<AzkarDetailsPage> {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
+
           Padding(
             padding:  EdgeInsets.only(top:heightR(70, context)),
             child: Column(

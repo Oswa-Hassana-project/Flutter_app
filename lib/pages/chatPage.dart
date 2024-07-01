@@ -102,16 +102,16 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Stack(
+    return Scaffold(
+      body: Stack(
           children: [
             Container(
               color: Colors.grey.shade300,
               child: Column(
                 textDirection: TextDirection.rtl,
                 children: [
-                  const SizedBox(
-                    height: 8,
+                   SizedBox(
+                    height: heightR(80, context),
                   ),
                   Expanded(
                     child: ListView.builder(
@@ -168,6 +168,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                 },
                                 textInputAction: TextInputAction.send,
                                 showCursor: true,
+
                                 decoration:  InputDecoration(
                                     border: InputBorder.none,
                                     hintText: 'Chat by $chatbotType'),

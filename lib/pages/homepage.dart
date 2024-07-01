@@ -3,6 +3,7 @@ import 'package:finalproject/model/repositories.dart';
 import 'package:finalproject/pages/azkaePage.dart';
 import 'package:finalproject/pages/chatPage.dart';
 import 'package:finalproject/pages/edit_profile.dart';
+import 'package:finalproject/pages/elqepla_page.dart';
 import 'package:finalproject/pages/notification_details.dart';
 import 'package:finalproject/pages/notificationsPage.dart';
 import 'package:finalproject/services/notification_service.dart';
@@ -145,7 +146,7 @@ class _homepageState extends State<homepage> {
                                       children: [
                                         features('assets/icons/Chatbot Chat Message.png','ChatBot',ChatScreen(),context),
                                         features('assets/icons/mos7af2.png','القرأن الكريم',ChatBot(),context),
-                                        features('assets/icons/img-YKRytuAHw3Rowfv_1672400372 1.png','القبلة',ChatBot(),context),
+                                        features('assets/icons/img-YKRytuAHw3Rowfv_1672400372 1.png','القبلة',ElqeplaPage(),context),
                                        // features('assets/icons/images__2_-removebg-preview 1.png','السيره النبويه',ChatBot(),context),
                                         features('assets/icons/hand.png','الأذكار',AzkarPage(),context),
                                       ],
