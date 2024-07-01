@@ -15,6 +15,7 @@ class AzkarCubit extends Cubit<AzkarStates>{
   List<Azkar> allData = [];
   List<Azkar> savedData = [];
   List<bool> isBookmarked = [];
+  List<bool> isBookmarkeds = [];
 
 
 
@@ -25,7 +26,6 @@ class AzkarCubit extends Cubit<AzkarStates>{
       allData = List<Azkar>.from(AzkarData);
       isBookmarked = List.generate(AzkarData.length, (_) => false);
       await _loadBookmarks();
-      print(isBookmarked);
       emit(BookIconToggle());
       emit(LoadAzkarState(allData));
 
@@ -48,6 +48,12 @@ class AzkarCubit extends Cubit<AzkarStates>{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('bookmark_${azkar.id}', azkar.isBookmarked);
   }
+
+  Future<void> _removeBookmark(Azkar azkar) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('bookmark_${azkar.id}');
+  }
+
   // void toggleBookmark(int index) async {
   //   if (state is LoadAzkarState) {
   //     List<Azkar> allData = List.from((state as LoadAzkarState)
@@ -78,7 +84,9 @@ class AzkarCubit extends Cubit<AzkarStates>{
         if (updatedAzkarList[index].isBookmarked) {
           savedData.add(updatedAzkarList[index]);
         } else {
-          savedData.removeWhere((element) => element.id == updatedAzkarList[index].id);
+          savedData.removeWhere(
+                  (element) => element.id == updatedAzkarList[index].id);
+          await _removeBookmark(updatedAzkarList[index]);
         }
         allData=updatedAzkarList;
         await _saveBookmark(allData[index]);

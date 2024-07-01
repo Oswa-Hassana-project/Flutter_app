@@ -33,13 +33,9 @@ class SavedAzkar extends StatelessWidget {
                           onPressed: () => Navigator.pop(context),
                           icon: Icon(Icons.arrow_back_ios),),
                         Text(
-                          'Azkar',
+                          'Saved Azkar',
                           style: TextStyle(fontSize: sizeR(24, context)),
                         ),
-                        IconButton(
-                            onPressed: () {
-
-                            }, icon: Icon(Icons.save)),
                       ],
                     ),
                     Expanded(
@@ -53,7 +49,7 @@ class SavedAzkar extends StatelessWidget {
                                 Navigator.push(context, MaterialPageRoute(builder: (context) =>  AzkarDetailsPage(title: cubit.savedData[index].category,azkar: cubit.savedData[index]),));
                               },
                               child: AzkarWidget(cubit.savedData[index].category,index,cubit.savedData[index].isBookmarked, context,onBookmarkToggle: () {
-                                cubit.toggleBookmark(index);
+                               cubit.toggleBookmark(index);
                               },));
                         },),
                     )
