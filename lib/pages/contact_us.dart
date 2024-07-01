@@ -38,9 +38,9 @@ class _ContactUsState extends State<ContactUs> {
           ContactInformation(
               click: () => showModalActionSheet(
                   context: context,
-                  title: "Uswah Hasanah",
+                  title: "أسوه حسنه",
                   message:
-                      "The proposed system integrates search (including NLP) to guide and engage Muslims, providing a following sunnah and providing trusted Islamic content. We will design this via a mobile app based on the Flutter platform, this mobile app uses a web backend that handles all processes including (AI techniques like NLP)."),
+                      "أسوه حسنه هو تطبيق إسلامي يجمع بين العديد من الخدمات الدينية الأساسية مثل القرآن الكريم بتلاوات متنوعة، الأذكار، ومواقيت الصلاة. يتميز التطبيق بتصميم مريح وجذاب يسهل على المستخدمين الوصول إلى المحتوى بسلاسة.\n\n الميزة البارزة في أسوه حسنه هي الشات بوت المتقدم، الذي يعتمد على تقنيات الذكاء الاصطناعي ومعالجة اللغة الطبيعية لتقديم إجابات دقيقة ومفيدة عن الأسئلة الدينية. يتميز الشات بوت بقدرته على استخدام معلومات دينية موثوقة من الأزهر الشريف، مما يجعله مرشداً موثوقاً ومفيداً للمستخدمين في رحلتهم الدينية والتعليمية.\n\n بفضل هذه الميزات، يعتبر أسوه حسنه خياراً مثالياً لأولئك الذين يبحثون عن تطبيق إسلامي شامل يلبي احتياجاتهم الدينية بكفاءة وسهولة.\n"),
               icon: Iconsax.information_outline,
               Title: "what is Uswah Hasanah",
               SubTitle: '')
