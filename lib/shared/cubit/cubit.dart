@@ -104,6 +104,7 @@ class AppCubit extends Cubit<AppStates>{
     NotificationForNextPrayer(nearestPrayerTime, nextPrayerName);
     NotificationForAzkarElspah();
     NotificationForAzkarElmasaa();
+    NotificationForNowPrayer(nearestPrayerTime, nextPrayerName);
 
   }
   void NotificationForNextPrayer(DateTime prayerTime, String prayerName) {
@@ -114,6 +115,18 @@ class AppCubit extends Cubit<AppStates>{
         id: 0,
         title: ' اقتربت صلاه ${prayerName}',
         body: 'باقي عل صلاه ${prayerName} 10 دقائق',
+        payload: 'prayer_notification',
+      );
+    }
+  }
+  void NotificationForNowPrayer(DateTime prayerTime, String prayerName) {
+    final now = DateTime.now();
+    final duration = prayerTime.difference(now);
+    if (duration.inSeconds==0) {
+      _notificationService.showBasicNotification(
+        id: 0,
+        title: ' صلاه ${prayerName} الان',
+        body: 'حان الان وقت صلاه ${prayerName}',
         payload: 'prayer_notification',
       );
     }
