@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ffi';
+import 'package:finalproject/main.dart';
 import 'package:finalproject/model/dataModel.dart';
 import 'package:finalproject/model/repositories.dart';
+import 'package:finalproject/services/notification_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:bloc/bloc.dart';
@@ -13,7 +15,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AppCubit extends Cubit<AppStates>{
   final TimeRepository _repository;
   late Timer  _timer;
+  late LocalNotificationService _notificationService;
   AppCubit(this._repository):super(AppInitalState()){
+    _notificationService = LocalNotificationService();
+    LocalNotificationService.init(); // Initialize notification service
     _timer = Timer.periodic(Duration(seconds: 1), (_) => fetchTime());
   }
 
@@ -95,7 +100,47 @@ class AppCubit extends Cubit<AppStates>{
     }
     // Calculate time until the next prayer
     timeUntilNextPrayer = nearestPrayerTime.difference(now);
+    // Schedule notification if 10 minutes away
+    NotificationForNextPrayer(nearestPrayerTime, nextPrayerName);
+    NotificationForAzkarElspah();
+    NotificationForAzkarElmasaa();
+
   }
+  void NotificationForNextPrayer(DateTime prayerTime, String prayerName) {
+    final now = DateTime.now();
+    final duration = prayerTime.difference(now);
+    if (duration.inSeconds == 600) {
+      _notificationService.showBasicNotification(
+        id: 0,
+        title: ' اقتربت صلاه ${prayerName}',
+        body: 'باقي عل صلاه ${prayerName} 10 دقائق',
+        payload: 'prayer_notification',
+      );
+    }
+  }
+  void NotificationForAzkarElspah() {
+    final duration = DateTime.now();
+    if (duration.hour==9&&duration.minute == 0&&duration.second==0 ) {
+      _notificationService.showDailyScheduleNotification(
+        id: 0,
+        title: 'الاذكار',
+        body: 'ابدأ صباحك بأذكار الصباح',
+        payload: 'azkar_page',
+      );
+    }
+  }
+  void NotificationForAzkarElmasaa() {
+    final duration = DateTime.now();
+    if (duration.hour == 18 && duration.minute==0 &&duration.second==0) {
+      _notificationService.showBasicNotification(
+        id: 0,
+        title: 'الاذكار',
+        body: 'لا تنسي أذكارالمساء',
+        payload: 'azkar_page',
+      );
+    }
+  }
+
 
 
   // void GetTimeNow(){

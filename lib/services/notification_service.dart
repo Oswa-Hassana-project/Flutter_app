@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:finalproject/main.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -7,8 +9,10 @@ import 'package:flutter_timezone/flutter_timezone.dart';
 class LocalNotificationService {
   static FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
   FlutterLocalNotificationsPlugin();
-  static StreamController<NotificationResponse> streamController =
-  StreamController();
+  // static StreamController<NotificationResponse> streamController =
+  // StreamController();
+  static StreamController<NotificationResponse> streamController = StreamController.broadcast();
+
 
   static onTap(NotificationResponse notificationResponse) {
     streamController.add(notificationResponse);
@@ -24,6 +28,13 @@ class LocalNotificationService {
       onDidReceiveNotificationResponse: onTap,
       onDidReceiveBackgroundNotificationResponse: onTap,
     );
+    streamController.stream.listen((notificationResponse) {
+      // Handle navigation based on payload
+      if (notificationResponse.payload == 'azkar_page') {
+        // Navigate to AzkarPage
+        navigatorKey?.currentState?.pushNamed('azkar_page');
+      }
+    });
   }
 
   Future showBasicNotification(
@@ -80,7 +91,7 @@ class LocalNotificationService {
         currentTime.day, currentTime.hour, currentTime.minute);
     print(tz.local.name);
     if(scheduleTime.isBefore(currentTime)){
-      scheduleTime= scheduleTime.add(const Duration(minutes: 1));
+      scheduleTime= scheduleTime.add(const Duration(seconds: 5));
     }
     await flutterLocalNotificationsPlugin.zonedSchedule(
         id,

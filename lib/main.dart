@@ -13,14 +13,14 @@ import 'package:finalproject/services/background_work_service.dart';
 import 'package:finalproject/services/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async{
   Bloc.observer = MyBlocObserver();
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await Future.wait([
-  //   LocalNotificationService.init(),
-  //   BackgroundService().init()
-  // ]);
+  WidgetsFlutterBinding.ensureInitialized();
+  await Future.wait([
+    LocalNotificationService.init(),
+    BackgroundService().init()
+  ]);
   // await LocalNotificationService.init();
   // await BackgroundService().init();
   runApp(const MyApp());
@@ -37,12 +37,16 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
     return MaterialApp(
+      navigatorKey: navigatorKey,
       theme: ThemeData(
         fontFamily: 'Poppins',
         useMaterial3: true,
         scaffoldBackgroundColor: Color(0xff13a795),
       ),debugShowCheckedModeBanner: false,
       home: NavPage(),
+      routes: {
+        'azkar_page': (context) => AzkarPage(), // Define the route
+      },
     );
   }
 }

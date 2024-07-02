@@ -5,6 +5,7 @@ import 'package:finalproject/shared/cubit/nav_cubit.dart';
 import 'package:finalproject/shared/cubit/nav_cubit_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class NavPage extends StatefulWidget {
   const NavPage({super.key});
@@ -15,17 +16,35 @@ class NavPage extends StatefulWidget {
 }
 
 class _NavPageState extends State<NavPage> {
+  PermissionStatus _permissionStatus = PermissionStatus.denied;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    listenToNotificationStream();
+    _checkPermissionStatus();
+    _requestPermission();
+    // listenToNotificationStream();
   }
-  void listenToNotificationStream() {
-    LocalNotificationService.streamController.stream.listen((notificationResponse) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationDetails(response: notificationResponse,),));
-    },);
+  Future<void> _checkPermissionStatus() async {
+    final status = await Permission.notification.status;
+    setState(() {
+      _permissionStatus = status;
+    });
   }
+  Future<void> _requestPermission() async {
+    final status = await Permission.notification.request();
+    setState(() {
+      _permissionStatus = status;
+    });
+  }
+
+
+  // void listenToNotificationStream() {
+  //   LocalNotificationService.streamController.stream.listen((notificationResponse) {
+  //     Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationDetails(response: notificationResponse,),));
+  //   },);
+  // }
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => NavCubit(),

@@ -1,4 +1,6 @@
+import 'package:finalproject/model/repositories.dart';
 import 'package:finalproject/services/notification_service.dart';
+import 'package:finalproject/shared/cubit/cubit.dart';
 import 'package:workmanager/workmanager.dart';
 
 class BackgroundService {
@@ -32,11 +34,16 @@ class BackgroundService {
     'vm:entry-point') // Mandatory if the App is obfuscated or using Flutter 3.1+
 void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) {
-    LocalNotificationService().showBasicNotification(
-        id: 4,
-        title: 'hi hi',
-        body: 'work manage',
-        payload: 'work body'); //simpleTask will be emitted here.
+    //LocalNotificationService().showDailyScheduleNotification(title: 'hallo',body: 'hi hi hih ih',id: 1);
+    final cubit = AppCubit(TimeRepository()); // Create an instance of AppCubit
+    cubit.fetchTime();
+    AppCubit(TimeRepository()).NotificationForAzkarElmasaa();
+    AppCubit(TimeRepository()).NotificationForAzkarElspah();
+    // LocalNotificationService().showBasicNotification(
+    //     id: 4,
+    //     title: 'hi hi',
+    //     body: 'work manage',
+    //     payload: 'work body'); //simpleTask will be emitted here.
     return Future.value(true);
   });
 }

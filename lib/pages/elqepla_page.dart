@@ -17,7 +17,6 @@ class _ElqeplaPageState extends State<ElqeplaPage> {
   @override
   void initState() {
     super.initState();
-
     _fetchPermissionStatus();
   }
   Widget build(BuildContext context) {
